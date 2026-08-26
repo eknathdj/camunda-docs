@@ -64,7 +64,9 @@ the broker restarts or the partition changes leader. A store that is backing off
 it cools down, so its references do not consume the batch limit that a healthy store could use.
 
 A reference that fails permanently, or whose store never recovers, raises an incident for the
-jobs waiting on it. See [incidents](incidents.md).
+jobs waiting on it. See
+[a secret could not be resolved](secret-resolution-incidents.md#a-secret-could-not-be-resolved) for
+the incident message, how to tell the causes apart, and what resolving it does.
 
 ## Activate a job that references secrets
 
@@ -167,10 +169,8 @@ later variable merge overwrote it, or if the variables cannot be read at all, th
 activated and an incident is raised. The incident also takes the job out of activation until the
 incident is resolved, so the same failing injection is not retried on every activation.
 
-For how to inspect and resolve either incident, see [incidents](incidents.md).
-
-<!-- The incident messages, the diagnosis steps, and the operator runbook are owned by
-camunda/camunda#60964. Link into that content from here once it lands, instead of restating it. -->
+For how to inspect and resolve either incident, see
+[troubleshoot secret resolution failures](secret-resolution-incidents.md).
 
 ## Tune the resolution scheduler
 
@@ -208,5 +208,7 @@ owned by camunda/camunda#60963. Name and link them here once they are in the met
 ## Related resources
 
 - [Job workers](job-workers.md) describes long polling, job push, and job queuing in general.
+- [Troubleshoot secret resolution failures](secret-resolution-incidents.md) covers the incidents
+  described here: their messages, how to diagnose them, and what happens after you resolve them.
 - [Incidents](incidents.md) explains what an incident is and how it is resolved, which applies to
   the incidents described here.
