@@ -46,11 +46,7 @@ was last read, so a reference that every activation uses still expires on schedu
 evicted earlier when a store's cache is full. A job activated after its reference has left the
 cache is parked and resolved again exactly as it was the first time. That is also how a rotated
 secret reaches workers without a restart. The cache lifetime and size are configured per store
-under `camunda.secrets.cache`.
-
-<!-- The cache configuration (camunda.secrets.cache.ttl, camunda.secrets.cache.max-size) is owned
-by camunda/camunda#60331. Link its cache section here once it lands, instead of restating the
-defaults. -->
+under [`camunda.secrets.cache`](/self-managed/components/orchestration-cluster/core-settings/configuration/properties.md#camundasecretscache).
 
 Two kinds of failure are treated differently:
 
