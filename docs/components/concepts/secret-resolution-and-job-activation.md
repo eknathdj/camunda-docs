@@ -41,6 +41,13 @@ The scheduler then works through the references that are still pending:
 Resolution records carry no secret values. Only the store's cache holds a value, and only for as
 long as its cache entry lives.
 
+A cached value does not live forever. It expires a fixed time after it was written, not after it
+was last read, so a reference that every activation uses still expires on schedule, and it can be
+evicted earlier when a store's cache is full. A job activated after its reference has left the
+cache is parked and resolved again exactly as it was the first time. That is also how a rotated
+secret reaches workers without a restart. The cache lifetime and size are configured per store
+under [`camunda.secrets.cache`](/self-managed/components/orchestration-cluster/core-settings/configuration/properties.md#camundasecretscache).
+
 Two kinds of failure are treated differently:
 
 | Failure                                                      | Behavior                                                                                                                                                                            |
@@ -164,7 +171,9 @@ camunda/camunda#60964. Link into that content from here once it lands, instead o
 ## Tune the resolution scheduler
 
 The scheduler is configured under `camunda.processing.engine.secrets`. The defaults suit a store
-that responds in well under a second.
+that responds in well under a second. How long a resolved value then stays usable is a separate
+setting, `camunda.secrets.cache.ttl`, which governs how often a reference has to be resolved
+again.
 
 | Property                 | Default | Change it when                                                                                                                                      |
 | :----------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
